@@ -1,0 +1,387 @@
+"""
+Page: Power BI Dashboard
+Embedded interactive dashboard from Power BI
+"""
+
+import streamlit as st
+import streamlit.components.v1 as components
+
+st.set_page_config(page_title="Dashboard", page_icon="📈", layout="wide")
+
+TEAL_DARK = "#2A6F6F"
+TEAL_LIGHT = "#8AC4C4"
+CORAL = "#D97757"
+
+st.markdown("""
+<style>
+    .page-header {
+        background: linear-gradient(135deg, #2A6F6F 0%, #4A9B9B 100%);
+        padding: 2rem; border-radius: 12px;
+        color: white; margin-bottom: 2rem;
+    }
+    .page-header h1 { color: white !important; margin: 0; }
+    .page-header p { color: rgba(255,255,255,0.95); margin: 0.5rem 0 0 0; }
+    
+    .info-box {
+        background: white;
+        padding: 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 1rem;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        border-left: 4px solid #2A6F6F;
+    }
+    
+    .info-box h4 {
+        color: #2A6F6F;
+        margin-top: 0;
+    }
+    
+    .feature-card {
+        background: white;
+        padding: 1.2rem;
+        border-radius: 10px;
+        margin-bottom: 0.8rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+        text-align: center;
+    }
+    
+    .feature-card h4 {
+        color: #2A6F6F;
+        margin: 0.5rem 0;
+        font-size: 1rem;
+    }
+    
+    .feature-card p {
+        color: #6B7878;
+        font-size: 0.85rem;
+        margin: 0;
+        line-height: 1.5;
+    }
+    
+    .feature-icon {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .section-header {
+        color: #2A6F6F;
+        font-weight: 600;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 2px solid #8AC4C4;
+    }
+    
+    .placeholder-dashboard {
+        background: linear-gradient(135deg, #F5F5F0 0%, #FFFFFF 100%);
+        padding: 4rem 2rem;
+        border-radius: 12px;
+        text-align: center;
+        border: 2px dashed #8AC4C4;
+        margin: 2rem 0;
+    }
+    
+    .placeholder-dashboard h2 {
+        color: #2A6F6F;
+        margin-bottom: 1rem;
+    }
+    
+    .placeholder-dashboard p {
+        color: #6B7878;
+        font-size: 1rem;
+        line-height: 1.7;
+        max-width: 600px;
+        margin: 0 auto;
+    }
+    
+    .step-box {
+        background: white;
+        padding: 1.2rem 1.5rem;
+        border-radius: 10px;
+        margin-bottom: 0.8rem;
+        box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        border-left: 3px solid #4A9B9B;
+    }
+    
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+</style>
+""", unsafe_allow_html=True)
+
+st.markdown("""
+<div class="page-header">
+    <h1>📈 Power BI Dashboard</h1>
+    <p>Interactive business intelligence view of the diabetic readmission dataset</p>
+</div>
+""", unsafe_allow_html=True)
+
+# ============================================================
+# DASHBOARD INFO
+# ============================================================
+st.markdown('<h3 class="section-header">About This Dashboard</h3>', unsafe_allow_html=True)
+
+st.markdown("""
+<div class="info-box">
+    <h4>What's Inside</h4>
+    <p style="color:#2C3E3E; line-height:1.7;">
+    This Power BI dashboard provides an executive-level visual analysis of patient readmission patterns.
+    It complements the machine learning model by offering interactive filtering, drill-down capabilities,
+    and business-oriented KPIs that hospital administrators can use to identify trends and risk factors
+    at a glance.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+# ============================================================
+# DASHBOARD FEATURES
+# ============================================================
+st.markdown('<h3 class="section-header">Dashboard Highlights</h3>', unsafe_allow_html=True)
+
+col1, col2, col3, col4 = st.columns(4)
+
+with col1:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-icon">💊</div>
+        <h4>Medication Usage</h4>
+        <p>Insulin and diabetes med rates by risk level</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-icon">👥</div>
+        <h4>Age Distribution</h4>
+        <p>Readmission breakdown across age groups</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col3:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-icon">🏥</div>
+        <h4>Top Specialties</h4>
+        <p>Departments with highest readmission rates</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col4:
+    st.markdown("""
+    <div class="feature-card">
+        <div class="feature-icon">🔥</div>
+        <h4>Risk Heatmap</h4>
+        <p>Risk level vs medication intersection</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ============================================================
+# EMBED OPTIONS
+# ============================================================
+st.markdown('<h3 class="section-header">View Dashboard</h3>', unsafe_allow_html=True)
+
+# Method selector
+embed_method = st.radio(
+    "Choose how to view the dashboard:",
+    ["📺 Embedded (Power BI Public Link)", "📥 Download .pbix File", "🖼️ Static Screenshots"],
+    horizontal=True
+)
+
+st.markdown("---")
+
+# ============================================================
+# METHOD 1: EMBEDDED VIEW
+# ============================================================
+if embed_method == "📺 Embedded (Power BI Public Link)":
+    # 🔄 REPLACE THIS URL with your actual Power BI "Publish to Web" embed link
+    # Steps to get it:
+    # 1. Open your .pbix file in Power BI Desktop
+    # 2. Publish to Power BI Service (need a Microsoft account)
+    # 3. In Power BI Service: File → Embed report → Publish to web
+    # 4. Copy the iframe src URL and paste it below
+    
+    POWER_BI_EMBED_URL = "https://app.powerbi.com/view?r=YOUR_REPORT_ID_HERE"
+    
+    if "YOUR_REPORT_ID_HERE" in POWER_BI_EMBED_URL:
+        st.markdown("""
+        <div class="placeholder-dashboard">
+            <h2>📊 Dashboard Embed Setup Required</h2>
+            <p>
+            To embed your Power BI dashboard live in this app, you'll need to publish it to the web first.
+            Follow the steps below to get your embed link, then paste it in the source code of this page.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.markdown('<h3 class="section-header">How to Embed Power BI</h3>', unsafe_allow_html=True)
+        
+        st.markdown("""
+        <div class="step-box">
+            <b style="color:#2A6F6F;">Step 1:</b> Sign up at 
+            <a href="https://powerbi.microsoft.com" target="_blank">powerbi.microsoft.com</a> 
+            (free with a Microsoft account)
+        </div>
+        <div class="step-box">
+            <b style="color:#2A6F6F;">Step 2:</b> Open your <code>power_BI_460.pbix</code> in Power BI Desktop
+        </div>
+        <div class="step-box">
+            <b style="color:#2A6F6F;">Step 3:</b> Click <b>Publish</b> → choose <b>My workspace</b>
+        </div>
+        <div class="step-box">
+            <b style="color:#2A6F6F;">Step 4:</b> In Power BI Service (online), open your report
+        </div>
+        <div class="step-box">
+            <b style="color:#2A6F6F;">Step 5:</b> Go to <b>File → Embed report → Publish to web (public)</b>
+        </div>
+        <div class="step-box">
+            <b style="color:#2A6F6F;">Step 6:</b> Copy the link from the embed code (the <code>src</code> URL in the iframe)
+        </div>
+        <div class="step-box">
+            <b style="color:#2A6F6F;">Step 7:</b> Open <code>pages/7_Dashboard.py</code> and replace 
+            <code>POWER_BI_EMBED_URL</code> with your link
+        </div>
+        """, unsafe_allow_html=True)
+        
+        st.info("💡 The 'Publish to web' feature creates a public link — anyone with the URL can view the dashboard.")
+    else:
+        # Embed the actual dashboard
+        components.iframe(POWER_BI_EMBED_URL, height=600, scrolling=True)
+
+# ============================================================
+# METHOD 2: DOWNLOAD FILE
+# ============================================================
+elif embed_method == "📥 Download .pbix File":
+    st.markdown("""
+    <div class="info-box">
+        <h4>Download the Power BI Report</h4>
+        <p style="color:#2C3E3E; line-height:1.7;">
+        Download the <code>.pbix</code> file and open it in 
+        <a href="https://powerbi.microsoft.com/desktop" target="_blank">Power BI Desktop</a> 
+        (free Microsoft tool) to interact with the full dashboard.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # If the .pbix file is in the project folder, offer it for download
+    import os
+    pbix_path = "power_BI_460.pbix"
+    
+    if os.path.exists(pbix_path):
+        with open(pbix_path, "rb") as f:
+            st.download_button(
+                label="📥 Download power_BI_460.pbix",
+                data=f,
+                file_name="power_BI_460.pbix",
+                mime="application/octet-stream"
+            )
+    else:
+        st.warning("⚠️ Place `power_BI_460.pbix` in the project root folder to enable downloads.")
+        st.code("# Project structure:\nstreamlit_app/\n├── Home.py\n├── power_BI_460.pbix    ← place here\n└── pages/")
+
+# ============================================================
+# METHOD 3: STATIC SCREENSHOTS
+# ============================================================
+else:
+    st.markdown("""
+    <div class="info-box">
+        <h4>Dashboard Screenshots</h4>
+        <p style="color:#2C3E3E; line-height:1.7;">
+        Static images of the dashboard sections. To view the interactive version,
+        download the <code>.pbix</code> file and open it in Power BI Desktop.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    # Show placeholder image areas
+    import os
+    screenshots_dir = "assets/dashboard_screenshots"
+    
+    if os.path.exists(screenshots_dir):
+        images = [f for f in os.listdir(screenshots_dir) if f.lower().endswith(('.png', '.jpg', '.jpeg'))]
+        if images:
+            for img in sorted(images):
+                st.image(os.path.join(screenshots_dir, img), use_column_width=True)
+        else:
+            st.warning("📷 No screenshots found in `assets/dashboard_screenshots/`")
+    else:
+        st.markdown("""
+        <div class="placeholder-dashboard">
+            <h2>📷 Add Dashboard Screenshots</h2>
+            <p>
+            To display static screenshots here, create a folder <code>assets/dashboard_screenshots/</code>
+            in your project and add PNG or JPG images of your Power BI dashboard pages.
+            </p>
+        </div>
+        """, unsafe_allow_html=True)
+
+# ============================================================
+# KEY INSIGHTS
+# ============================================================
+st.markdown('<h3 class="section-header">Key Insights from the Dashboard</h3>', unsafe_allow_html=True)
+
+col1, col2 = st.columns(2)
+
+with col1:
+    st.markdown("""
+    <div class="info-box">
+        <h4>📊 Patient Demographics</h4>
+        <p style="color:#2C3E3E; line-height:1.7;">
+        Middle-aged and senior patients form the largest portion of readmissions. The data shows
+        that age is one of the strongest demographic indicators of readmission risk, with elderly
+        patients being particularly vulnerable.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="info-box">
+        <h4>🏥 Specialty Trends</h4>
+        <p style="color:#2C3E3E; line-height:1.7;">
+        Internal Medicine and Emergency/Trauma departments handle the highest volume of readmitted
+        patients. This suggests these specialties may benefit most from predictive risk-flagging tools.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+with col2:
+    st.markdown("""
+    <div class="info-box">
+        <h4>💊 Medication Patterns</h4>
+        <p style="color:#2C3E3E; line-height:1.7;">
+        High-risk patients show distinctive medication usage patterns — particularly around insulin
+        adjustments and diabetes medication changes. The risk × medication heatmap reveals clusters
+        worth deeper clinical investigation.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+    
+    st.markdown("""
+    <div class="info-box">
+        <h4>⚠️ Risk Distribution</h4>
+        <p style="color:#2C3E3E; line-height:1.7;">
+        Roughly one-third of patients fall into elevated risk categories. This is a substantial
+        operational load that justifies investment in automated risk-prediction systems like the
+        ML models built in this project.
+        </p>
+    </div>
+    """, unsafe_allow_html=True)
+
+# ============================================================
+# CONNECTION TO ML PROJECT
+# ============================================================
+st.markdown('<h3 class="section-header">How This Connects to the ML Pipeline</h3>', unsafe_allow_html=True)
+
+st.markdown("""
+<div class="info-box" style="border-left: 4px solid #D97757;">
+    <p style="color:#2C3E3E; line-height:1.8; margin:0;">
+    The Power BI dashboard answers <b>"what happened?"</b> — it reveals historical patterns in the data.
+    The machine learning models in this project answer <b>"what will happen?"</b> — they predict future
+    readmission risk for individual patients. Together, they form a complete analytics solution:
+    descriptive insight from the dashboard guides hospital strategy, while predictive scoring from
+    the models supports clinical decisions at the patient level.
+    </p>
+</div>
+""", unsafe_allow_html=True)
+
+st.markdown("---")
+st.caption("Power BI Dashboard · Pattern Recognition Project · DA360 · Yarmouk University")
