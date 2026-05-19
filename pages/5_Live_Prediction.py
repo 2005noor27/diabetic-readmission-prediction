@@ -333,12 +333,3 @@ if st.button("🔮 Predict Readmission Risk", type="primary"):
         and home health care evaluation. Consider medication reconciliation review.
         """)
 
-# ============================================================
-# DISCLAIMER
-# ============================================================
-st.markdown("---")
-st.caption("""
-⚠️ **Disclaimer:** This is an academic demonstration using a placeholder prediction logic.
-For actual clinical use, integrate the trained model from your notebook by loading the
-serialized model file (e.g., using `pickle.load()`) and replacing the rule-based logic above.
-""")
