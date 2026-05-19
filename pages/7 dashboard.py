@@ -183,7 +183,7 @@ st.markdown('<h3 class="section-header">View Dashboard</h3>', unsafe_allow_html=
 # Method selector
 embed_method = st.radio(
     "Choose how to view the dashboard:",
-    ["📺 Embedded (Power BI Public Link)", "📥 Download .pbix File", "🖼️ Static Screenshots"],
+    ["📥 Download .pbix File", "🖼️ Static Screenshots"],
     horizontal=True
 )
 
@@ -192,60 +192,7 @@ st.markdown("---")
 # ============================================================
 # METHOD 1: EMBEDDED VIEW
 # ============================================================
-if embed_method == "📺 Embedded (Power BI Public Link)":
-    # 🔄 REPLACE THIS URL with your actual Power BI "Publish to Web" embed link
-    # Steps to get it:
-    # 1. Open your .pbix file in Power BI Desktop
-    # 2. Publish to Power BI Service (need a Microsoft account)
-    # 3. In Power BI Service: File → Embed report → Publish to web
-    # 4. Copy the iframe src URL and paste it below
-    
-    POWER_BI_EMBED_URL = "https://app.powerbi.com/view?r=YOUR_REPORT_ID_HERE"
-    
-    if "YOUR_REPORT_ID_HERE" in POWER_BI_EMBED_URL:
-        st.markdown("""
-        <div class="placeholder-dashboard">
-            <h2>📊 Dashboard Embed Setup Required</h2>
-            <p>
-            To embed your Power BI dashboard live in this app, you'll need to publish it to the web first.
-            Follow the steps below to get your embed link, then paste it in the source code of this page.
-            </p>
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.markdown('<h3 class="section-header">How to Embed Power BI</h3>', unsafe_allow_html=True)
-        
-        st.markdown("""
-        <div class="step-box">
-            <b style="color:#2A6F6F;">Step 1:</b> Sign up at 
-            <a href="https://powerbi.microsoft.com" target="_blank">powerbi.microsoft.com</a> 
-            (free with a Microsoft account)
-        </div>
-        <div class="step-box">
-            <b style="color:#2A6F6F;">Step 2:</b> Open your <code>power_BI_460.pbix</code> in Power BI Desktop
-        </div>
-        <div class="step-box">
-            <b style="color:#2A6F6F;">Step 3:</b> Click <b>Publish</b> → choose <b>My workspace</b>
-        </div>
-        <div class="step-box">
-            <b style="color:#2A6F6F;">Step 4:</b> In Power BI Service (online), open your report
-        </div>
-        <div class="step-box">
-            <b style="color:#2A6F6F;">Step 5:</b> Go to <b>File → Embed report → Publish to web (public)</b>
-        </div>
-        <div class="step-box">
-            <b style="color:#2A6F6F;">Step 6:</b> Copy the link from the embed code (the <code>src</code> URL in the iframe)
-        </div>
-        <div class="step-box">
-            <b style="color:#2A6F6F;">Step 7:</b> Open <code>pages/7_Dashboard.py</code> and replace 
-            <code>POWER_BI_EMBED_URL</code> with your link
-        </div>
-        """, unsafe_allow_html=True)
-        
-        st.info("💡 The 'Publish to web' feature creates a public link — anyone with the URL can view the dashboard.")
-    else:
-        # Embed the actual dashboard
-        components.iframe(POWER_BI_EMBED_URL, height=600, scrolling=True)
+
 
 # ============================================================
 # METHOD 2: DOWNLOAD FILE
