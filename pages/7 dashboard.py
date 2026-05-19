@@ -190,14 +190,9 @@ embed_method = st.radio(
 st.markdown("---")
 
 # ============================================================
-# METHOD 1: EMBEDDED VIEW
+# METHOD: DOWNLOAD FILE
 # ============================================================
-
-
-# ============================================================
-# METHOD 2: DOWNLOAD FILE
-# ============================================================
-elif embed_method == "📥 Download .pbix File":
+if embed_method == "📥 Download .pbix File":
     st.markdown("""
     <div class="info-box">
         <h4>Download the Power BI Report</h4>
