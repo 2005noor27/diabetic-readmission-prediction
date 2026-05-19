@@ -86,29 +86,29 @@ st.markdown("""
 </div>
 """, unsafe_allow_html=True)
 
+
 # ============================================================
-# RESULTS (placeholders - update with your real values)
+# RESULTS (Actual results from training)
 # ============================================================
-st.info("📝 Note: Update the numbers below with your actual model results from the notebook.")
 
 results = {
     'Decision Tree': {
-        'accuracy': 0.58, 'precision': 0.56, 'recall': 0.58, 'f1': 0.57,
+        'accuracy': 0.4230, 'precision': 0.52, 'recall': 0.42, 'f1': 0.42,
         'desc': 'Tree-based model that splits data into branches based on feature thresholds. Highly interpretable and handles non-linear patterns.',
         'params': 'max_depth=5, random_state=42'
     },
     'k-NN': {
-        'accuracy': 0.52, 'precision': 0.50, 'recall': 0.52, 'f1': 0.51,
+        'accuracy': 0.3910, 'precision': 0.49, 'recall': 0.39, 'f1': 0.42,
         'desc': 'Distance-based classifier that assigns each sample the most common label among its k nearest training neighbors.',
         'params': 'n_neighbors=5'
     },
     'SVM': {
-        'accuracy': 0.61, 'precision': 0.59, 'recall': 0.61, 'f1': 0.60,
+        'accuracy': 0.4537, 'precision': 0.52, 'recall': 0.45, 'f1': 0.48,
         'desc': 'Support Vector Machine with RBF kernel that finds optimal decision boundaries in transformed feature spaces.',
         'params': "kernel='rbf', random_state=42"
     },
     'Logistic Regression': {
-        'accuracy': 0.56, 'precision': 0.54, 'recall': 0.56, 'f1': 0.55,
+        'accuracy': 0.4506, 'precision': 0.51, 'recall': 0.45, 'f1': 0.45,
         'desc': 'Linear model that estimates class probabilities using the sigmoid function. Fast and interpretable.',
         'params': 'max_iter=1000, random_state=42'
     }
@@ -234,10 +234,10 @@ st.markdown("""
 classes = ['NO', '>30', '<30']
 
 cms = {
-    'Decision Tree': np.array([[2800, 1100, 600], [900, 1800, 400], [300, 280, 320]]),
-    'k-NN':          np.array([[2600, 1300, 700], [1000, 1500, 500], [400, 350, 250]]),
-    'SVM':           np.array([[3000, 950, 550], [800, 2000, 350], [280, 270, 350]]),
-    'Logistic Regression': np.array([[2700, 1200, 700], [950, 1700, 450], [320, 310, 270]])
+    'Decision Tree':       np.array([[5036, 2393, 826], [2674, 535, 2143], [702, 90, 702]]),
+    'k-NN':                np.array([[3302, 3219, 1734], [1873, 2087, 1392], [486, 500, 508]]),
+    'SVM':                 np.array([[4623, 1605, 2027], [2675, 1605, 1072], [580, 285, 629]]),
+    'Logistic Regression': np.array([[5200, 1485, 1570], [2540, 963, 1849], [466, 386, 642]])
 }
 
 selected_model = st.selectbox("Select model:", list(cms.keys()))
