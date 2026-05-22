@@ -152,12 +152,11 @@ with st.sidebar:
     Course: DA360  
     Yarmouk University
     """)
-    st.markdown("---")
-    st.markdown("#### 📋 Team Members")
+    st.markdown("####  Team Members")
     st.markdown("""
-    - Member 1  
-    - Member 2  
-    - Member 3
+    - Noor Alshorman  
+    - Dalaa Al-Khateeb  
+    - Hala Al-Qadi
     """)
     st.markdown("---")
     st.caption("Use the pages above to navigate through the project sections.")
