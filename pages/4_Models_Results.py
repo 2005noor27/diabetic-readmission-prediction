@@ -224,8 +224,7 @@ st.markdown("""
 <div class="info-box">
     <p style="color:#2C3E3E; margin:0;">
     Each confusion matrix shows the model's classification breakdown. The diagonal represents
-    correct predictions; off-diagonal cells represent errors. Replace the placeholder values
-    below with your actual confusion matrices from sklearn.
+    correct predictions; off-diagonal cells represent errors.
     </p>
 </div>
 """, unsafe_allow_html=True)
